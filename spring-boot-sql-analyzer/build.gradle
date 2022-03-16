@@ -1,0 +1,10 @@
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'mysql:mysql-connector-java:8.0.28'
+    implementation 'com.alibaba:druid-spring-boot-starter:1.2.8'
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.2'
+}

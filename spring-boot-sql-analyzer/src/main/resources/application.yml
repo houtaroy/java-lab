@@ -1,0 +1,68 @@
+server:
+  port: 9999
+  servlet:
+    context-path: /
+spring:
+  main:
+    allow-bean-definition-overriding: true
+    allow-circular-references: true
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.10.10.13:3308/spring-boot-test?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
+    username: spring
+    password: Hangar@1998+
+    druid: #druid连接池配置
+      initial-size: 5
+      min-idle: 5
+      max-wait: 60000
+      max-active: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      validation-query: SELECT 1
+      test-while-idle: true
+      test-on-borrow: true
+      test-on-return: false
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 20
+      stat-view-servlet: #druid监控配置
+        enabled: true # 允许druid监控
+        allow: 127.0.0.1  #允许访问的IP地址
+        login-username: spring-boot-sql-parser
+        login-password: spring-boot-sql-parser
+        reset-enable: true  #是否允许重置日志
+      web-stat-filter:    #web url 监控配置
+        enabled: true # 允许druid监控
+        exclusions: "*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*" #不监控的url
+      aop-patterns: cn.com.hangar.springboot.*,cn.com.hangar.spring-boot-sql-parser.* #sping监控的包
+      filter:
+        wall:
+          enabled: true
+  jackson:
+    serialization:
+      write-dates-as-timestamps: true #设置返回日期为时间戳，方便前台格式化
+      indent_output: true   #格式化输出
+      fail_on_empty_beans: false #忽略无法转换的对象
+    default-property-inclusion: non_empty #设置空值不序列化
+    deserialization:
+      fail_on_unknown_properties: false  #反序列化未知属性不失败
+  data:
+    web:
+      pageable:
+        page-parameter: pageNumber #分页设置-页码参数名称
+        size-parameter: pageSize   #分页设置-页大小参数名称
+        default-page-size: 50      #分页设置-默认页大小
+        max-page-size: 2000        #分页设置-最大页大小
+      sort:
+        sort-parameter: sort       #分页设置-排序参数名称
+
+mybatis:
+  mapper-locations: classpath*:mybatis/*Mapper.xml  #mybatis 映射文件位置
+
+logging:
+  level:
+    cn.houtaroy.java.lib: DEBUG
+  file:
+    name: spring-boot-sql-parser.log
