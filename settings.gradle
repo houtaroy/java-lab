@@ -1,2 +1,2 @@
 rootProject.name = 'java-lab'
-include('spring-boot-sql-analyzer')
+include('sql-analyzer')

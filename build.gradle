@@ -8,10 +8,6 @@ group = 'cn.houtaroy.java.lib'
 version = '2022.0.0-SNAPSHOT'
 sourceCompatibility = '1.8'
 
-tasks.withType(JavaCompile) {
-  options.encoding = "UTF-8"
-}
-
 repositories {
     mavenCentral()
 }
@@ -23,6 +19,9 @@ subprojects {
 
     dependencies {
         compileOnly 'org.projectlombok:lombok'
+        annotationProcessor 'org.projectlombok:lombok'
+        testCompileOnly 'org.projectlombok:lombok'
+        testAnnotationProcessor 'org.projectlombok:lombok'
         implementation 'org.springframework.boot:spring-boot-starter'
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
     }
