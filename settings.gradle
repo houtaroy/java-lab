@@ -1,2 +1,4 @@
 rootProject.name = 'java-lab'
 include('sql-analyzer')
+include('mqtt-spring-boot-starter')
+include('sharding-datasource-02')
