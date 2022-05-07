@@ -1,0 +1,24 @@
+server:
+  port: 9090
+
+spring:
+  kafka:
+    consumer:
+      bootstrap-servers: localhost:9092
+      # 配置消费者消息offset是否自动重置(消费者重连会能够接收最开始的消息)
+      auto-offset-reset: earliest
+    producer:
+      bootstrap-servers: localhost:9092
+      # 发送的对象信息变为json格式
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+      # 重试次数
+      retries: 5
+      properties:
+        retry:
+          backoff:
+            # 重试间隔, 单位毫秒
+            ms: 100
+kafka:
+  topic:
+    my-topic: my-topic
+    my-topic2: my-topic2
