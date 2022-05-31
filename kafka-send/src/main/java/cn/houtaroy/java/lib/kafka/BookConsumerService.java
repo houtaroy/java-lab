@@ -1,12 +1,12 @@
 package cn.houtaroy.java.lib.kafka;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,18 +23,9 @@ public class BookConsumerService {
   private final ObjectMapper objectMapper;
 
   @KafkaListener(topics = {"${kafka.topic.my-topic}"}, groupId = "group1")
-  public void consumeMessage(ConsumerRecord<String, String> bookConsumerRecord) {
-    try {
-      Book book = objectMapper.readValue(bookConsumerRecord.value(), Book.class);
-      LOGGER.info(
-        "消费者消费topic:{} partition:{}的消息 -> {}",
-        bookConsumerRecord.topic(),
-        bookConsumerRecord.partition(),
-        book.toString()
-      );
-    } catch (JsonProcessingException e) {
-      LOGGER.error("消费失败", e);
-    }
+  public void consumeMessage(ConsumerRecord<String, String> record, Acknowledgment ack) {
+    LOGGER.info("消费者消费topic:{} partition:{}的消息 -> {}", record.topic(), record.partition(), record.value());
+    ack.acknowledge();
   }
 
   @KafkaListener(topics = {"${kafka.topic.my-topic2}"}, groupId = "group2")

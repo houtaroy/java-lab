@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.stereotype.Component;
-import org.springframework.util.concurrent.ListenableFuture;
 
 import java.util.Optional;
 import java.util.concurrent.ExecutionException;
@@ -44,18 +43,15 @@ public class BookProducerService {
    * @param o     消息
    */
   public void asyncSendMessage(String topic, Object o) {
-    ListenableFuture<SendResult<String, Object>> future = kafkaTemplate.send(topic, o);
-    future.addCallback(this::success, this::error);
+    kafkaTemplate.send(topic, o).addCallback(this::success, this::error);
   }
 
-  public void success(SendResult<String, Object> result) {
-    Optional.ofNullable(result).ifPresent(r -> {
-      LOGGER.info(
-        "生产者成功发送消息到topic:{} partition:{}",
-        r.getRecordMetadata().topic(),
-        r.getRecordMetadata().partition()
-      );
-    });
+  protected void success(SendResult<String, Object> result) {
+    Optional.ofNullable(result).ifPresent(r -> LOGGER.info(
+      "生产者成功发送消息到topic:{} partition:{}",
+      r.getRecordMetadata().topic(),
+      r.getRecordMetadata().partition()
+    ));
   }
 
   public void error(Throwable ex) {
