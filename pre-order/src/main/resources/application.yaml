@@ -2,8 +2,8 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://bj-cdb-9amt73r4.sql.tencentcdb.com:59997/pre-order?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true
-    username: root
-    password: Hyh@282038
+    username: test
+    password: test@5015021301
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
