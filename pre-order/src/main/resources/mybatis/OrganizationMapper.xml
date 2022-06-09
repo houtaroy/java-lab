@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!-- namespace必须指向Dao接口 -->
-<mapper namespace="cn.houtaroy.java.lib.preorder.repositories.OrganizationRepository">
+<mapper namespace="cn.houtaroy.java.lab.preorder.repositories.OrganizationRepository">
   <sql id="selectOrganization">
     select t.id, t.code, t.name, t.left_value, t.right_value, t.level
     from t_organization t
   </sql>
-  <select id="find" resultType="cn.houtaroy.java.lib.preorder.entities.OrganizationEntity">
+  <select id="find" resultType="cn.houtaroy.java.lab.preorder.entities.OrganizationEntity">
     <include refid="selectOrganization"/>
   </select>
 </mapper>

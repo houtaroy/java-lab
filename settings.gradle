@@ -1,6 +1,8 @@
 rootProject.name = 'java-lab'
 include 'kafka-send'
+include 'limiter'
 include('mqtt-spring-boot-starter')
 include('pre-order')
 include('sharding-datasource-02')
+include('singleton')
 include('sql-analyzer')
